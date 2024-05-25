@@ -1,0 +1,11 @@
+{% load menu_tags cache %}
+
+
+<nav class="header__menu">
+  <ul>
+    <li><a href="/">Главная</a></li>
+    {% get_last_posts %}
+    {% get_categories %}
+    <li><a href="{% url 'about' %}">О нас</a></li>
+  </ul>
+</nav>

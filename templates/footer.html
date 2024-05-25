@@ -1,0 +1,31 @@
+{% load static social_tags cache %}
+
+{% cache 0 footer %}
+<footer class="footer">
+  <div class="container-fluid">
+
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="footer__text">
+          <div class="footer__logo">
+            <a href="#"><img src="{% static 'img/logo.png' %}" alt=""></a>
+          </div>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt
+            ut<br/> labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus
+            commodo viverra<br/> maecenas accumsan lacus vel facilisis. </p>
+          <div class="footer__social">
+              {% get_social_links as social_links %}
+              {% for item in social_links %}
+                <a href="{{ item.link }}"><img src="{{ item.icon.url }}"></a>
+              {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- Footer Section End -->
+{% endcache %}

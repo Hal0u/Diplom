@@ -1,0 +1,15 @@
+{% load social_tags cache %}
+
+
+{% cache 0 sidebar %}
+<div class="col-lg-4 col-md-4">
+    <div class="sidebar__item__categories">
+      <div class="sidebar__item__title">
+        <h6>Категории</h6>
+      </div>
+    {% include './sidebar_category.html' %}
+
+    </div>
+  </div>
+</div>
+{% endcache %}

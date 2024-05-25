@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+.auto-label {
+  font-weight: bold;
+  color: #000000; /* Измененный цвет текста метки */
+  margin-right: 5px;
+}
+
+.auto-p {
+  margin-bottom: 10px;
+  color: #008000; /* Измененный цвет текста параграфа */
+}
+
+.auto-button {
+  padding: 10px 35px;
+  background-color: #212529; /* Измененный цвет фона кнопки */
+  border-style: ridge;
+  border-color: #fff;
+  color: #fff; /* Измененный цвет текста кнопки */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.5s;
+}
+
+.auto-button:hover {
+  background-color: #eca305; /* Измененный цвет фона кнопки при наведении */
+}
+.auto-p {
+        margin-bottom: 20px;
+    }
+    .auto-label {
+        margin-bottom: 5px;
+    }
+</style>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-5">Авторизация</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="post">
+                {% csrf_token %}
+
+                {% for f in formMyAccountAuto %}
+                <div class="form-group">
+                    <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+                    <br>
+                    {{ f }}
+                    <div class="invalid-feedback d-block text-center">
+                        {{ f.errors }}
+                    </div>
+                </div>
+                {% endfor %}
+
+                <button type="submit" class="btn btn-primary btn-block auto-button">Авторизоваться</button>
+
+                <div class="text-center mt-3">
+                    <div class="text-danger">
+                        {{ formMyAccountAuto.non_field_errors }}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% load menu_tags social_tags cache %}
+
+{% cache 0 left_nav %}
+<div class="humberger__menu__overlay"></div>
+<div class="humberger__menu__wrapper">
+  <div class="humberger__menu__logo">
+    <a href="/"><img src="img/humberger/humberger-logo.png" alt=""></a>
+  </div>
+  <nav class="humberger__menu__nav mobile-menu">
+    <ul>
+      <li><a href="/">Главная</a></li>
+      {% get_categories %}
+      <li><a href="{% url 'about' %}">О нас</a></li>
+      <hr>
+      {% if request.user.is_authenticated %}
+      <li><a href="{% url 'addPost' %}">Добавить рецепт</a></li>
+      <li><a href="/logout">Выйти</a></li>
+      {% else %}
+      <li><a href="{% url 'Registration' %}">Регистрация нового Данила</a></li>
+      <li><a href="{% url 'userLogin' %}">Вход</a></li>
+      {% endif %}
+<!--      <li><a href="{% url 'contact' %}">Контакты</a></li>-->
+    </ul>
+  </nav>
+  <div id="mobile-menu-wrap"></div>
+
+<!--  <div class="humberger__menu__about">-->
+<!--    {% get_about as about %}-->
+<!--    <img src="{{ about.get_first_image}}" alt="">-->
+<!--    {{ about.mini_text|safe }}-->
+<!--    <div class="humberger__menu__about__social sidebar__item__follow__links">-->
+<!--      {% get_social_links as social_links %}-->
+<!--      {% for item in social_links %}-->
+<!--        <a href="{{ item.link }}"><img class="contact_icon" src="{{ item.icon.url }}"></a>-->
+<!--      {% endfor %}-->
+    </div>
+  </div>
+
+</div>
+{% endcache %}
