@@ -1,6 +1,29 @@
 {% extends 'blog/home.html' %}
 
 {% block content %}
+
+<style>
+    .auto-p {
+  margin-bottom: 10px;
+  color: #008000; /* Измененный цвет текста параграфа */
+}
+
+.auto-button {
+  padding: 10px 35px;
+  background-color: #212529; /* Измененный цвет фона кнопки */
+  border-style: ridge;
+  border-color: #fff;
+  color: #fff; /* Измененный цвет текста кнопки */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.5s;
+}
+
+.auto-button:hover {
+  background-color: #eca305; /* Измененный цвет фона кнопки при наведении */
+}
+</style>
+
 <form method="post" enctype="multipart/form-data" class="container">
     {% csrf_token %}
     <div class="row">
@@ -12,7 +35,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label class="rev-label" for="{{ f.id_for_label }}">{{ f.label }}:</label>
+                <label class="rev-label" for="{{ f.id_for_label }}">{{ f.label }}</label>
                 <br>
                 {{ f }}
                 <div class="invalid-feedback">
@@ -21,7 +44,7 @@
             </div>
         </div>
     </div>
-    {% if forloop.counter == 6 %}
+    {% if forloop.counter == 5 %}
     <div class="row">
         <div class="col-md-12">
             <hr>
@@ -31,7 +54,7 @@
     {% endfor %}
     <div class="row">
         <div class="col-md-12">
-            <button class="btn btn-primary rev-button" type="submit">Предложить</button>
+            <button class="btn btn-primary rev-button auto-button" type="submit">Опубликовать</button>
         </div>
     </div>
 </form>

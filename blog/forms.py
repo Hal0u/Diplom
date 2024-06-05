@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import HiddenInput
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.utils.text import slugify
@@ -13,10 +14,9 @@ class CommentForm(forms.ModelForm):
         model = Comment
         exclude = ['create_at', 'post']
         widgets = {
-            'name': forms.TextInput(attrs={'placeholder': 'name'}),
-            'email': forms.EmailInput(attrs={'placeholder': 'email'}),
-            'website': forms.TextInput(attrs={'placeholder': 'website'}),
-            'message': forms.Textarea(attrs={'placeholder': 'message'})
+            'name': forms.TextInput(attrs={'placeholder': 'Ваше имя'}),
+            'email': forms.EmailInput(attrs={'placeholder': 'Эл. почта'}),
+            'message': forms.Textarea(attrs={'placeholder': 'Текст комментария'})
             
         }
 
@@ -36,25 +36,43 @@ class PostForm(forms.ModelForm):
                 num += 1
             self.slug = unique_slug
         super().save(*args, **kwargs)
+    
+    def __init__(self, *args, **kwargs):
+       super().__init__(*args, **kwargs)
+       self.fields['title'].widget.attrs.update({'class': 'form-control'})
+       self.fields['image'].widget.attrs.update({'class':'form-control'})
+       self.fields['text'].widget.attrs.update({'class':'form-control'})
+       self.fields['category'].widget.attrs.update({'class':'form-control'})
+       self.fields['tags'].widget.attrs.update({'class':'form-control'})
+       self.fields['slug'].widget.attrs.update({'class':'form-control'})
 
 class RecipeForm(forms.ModelForm):
     class Meta:
         model = Recipe
         fields = ['name', 'serves', 'prep_time', 'cook_time', 'ingredients', 'directions']
+    def __init__(self, *args, **kwargs):
+       super().__init__(*args, **kwargs)
+       self.fields['name'].widget.attrs.update({'class': 'form-control'})
+       self.fields['serves'].widget.attrs.update({'class':'form-control'})
+       self.fields['prep_time'].widget.attrs.update({'class':'form-control'})
+       self.fields['cook_time'].widget.attrs.update({'class':'form-control'})
+       self.fields['ingredients'].widget.attrs.update({'class':'form-control'})
+       self.fields['directions'].widget.attrs.update({'class':'form-control'})
+
 
 class AddPostForm(forms.Form):
     title = forms.CharField(max_length=200, label='Название')
     image = forms.ImageField(label='Изображение', required=False)
-    text = forms.CharField(widget=forms.Textarea, label='Описание')
+    text = forms.CharField(widget=forms.Textarea(attrs={'cols': 80, 'rows': 8}), label='Описание')
     category = forms.ModelChoiceField(queryset=Category.objects.all(), label='Категория', required=False)
-    tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.all(), label='Теги', required=False)
-    slug = forms.SlugField(max_length=200, label='Отображение на сайте', required=False)
+    tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.all(), label='Тэг', required=False)
+    slug = forms.SlugField(max_length=200, label='', required=False, widget=HiddenInput())
     recipe_name = forms.CharField(max_length=100, label='Название блюда')
     serves = forms.CharField(max_length=50, label='Время подачи')
     prep_time = forms.IntegerField(label='Время на подготовку')
     cook_time = forms.IntegerField(label='Время приготовления')
-    ingredients = forms.CharField(widget=forms.Textarea, label='Ингридиенты')
-    directions = forms.CharField(widget=forms.Textarea, label='Инструкции')
+    ingredients = forms.CharField(widget=forms.Textarea(attrs={'cols': 80, 'rows': 8}), label='Ингридиенты')
+    directions = forms.CharField(widget=forms.Textarea(attrs={'cols': 80, 'rows': 8}), label='Инструкции')
 
     def save(self, user):
        
@@ -79,6 +97,7 @@ class AddPostForm(forms.Form):
             'post': post
         }
         Recipe.objectsRecipe.create(**recipe_data)
+
 
 
 # class AddPostForm(forms.ModelForm):

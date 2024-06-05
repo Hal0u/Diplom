@@ -26,20 +26,34 @@
 }
 
 .acc-button:hover {
-  background-color: #e6b800; /* Измененный цвет фона кнопки при наведении */
+  background-color: #eca305; /* Измененный цвет фона кнопки при наведении */
 }
 </style>
-    <h1 style="margin-bottom: 60px">Мой аккаунт</h1>
+<div class="container">
+  <h1 class="text-center mb-4">Регистрация</h1>
 <hr>
-    <form method="post">
+</div>
+<div class="container mt-5 d-flex justify-content-center">
+    <form method="post" class="w-50">
         {% csrf_token %}
         {% for f in formMyAccount %}
-        <p class="acc-p"><h2 class="acc-label" for = "{{ f.id_for_label }}">{{f.label}}: </h2>{{ f }}</p>
-        <div><h5 class="acc-label">{{ f.errors }}</h5></div>
+        <div class="form-group">
+            <label for="{{ f.id_for_label }}" class="acc-label h4">{{ f.label }}:</label>
+            {{ f }}
+            <small class="form-text text-danger">{{ f.errors }}</small>
+        </div>
         {% endfor %}
-        <button type="submit" class="acc-button" style="margin-bottom: 50px">Регистрация</button>
+        <button type="submit" class="btn btn-primary mb-4 acc-button">Зарегистрироваться</button>
     </form>
-    <div><h3 style="margin-bottom: 50px">После успешного прохождения процедуры регистрации на сайте,
-        вы можете перейти к авторизации, для дальнейшего просмотра основного функционала сайта. </h3></div>
-    <a class="acc-label" href="/auto"><button class="acc-button">Авторизоваться на сайте</button></a>
+    <div class="alert alert-info text-center w-50" role="alert">
+        <h5>После успешного прохождения процедуры регистрации на сайте, вы можете перейти к авторизации, для дальнейшего просмотра основного функционала сайта.
+        </br>
+        </br>
+          <a href="{% url 'userLogin' %}" class="btn btn-secondary w-50 text-center acc-button">Авторизоваться на сайте</a>
+        </h5>
+    </div>
+  
+</div>
+
+
 {% endblock %}

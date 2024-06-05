@@ -117,9 +117,9 @@ class Recipe(models.Model):
 
 
 class Comment(models.Model):
-    name = models.CharField(max_length=50)
-    email = models.CharField(max_length=100)
-    message = models.TextField(max_length=500)
+    name = models.CharField(max_length=50, verbose_name='Ваше имя')
+    email = models.CharField(max_length=100, verbose_name='Эл. почта')
+    message = models.TextField(max_length=500, verbose_name='Комментарий')
     create_at = models.DateTimeField(default=timezone.now)
     post = models.ForeignKey(Post, related_name="comment", on_delete=models.CASCADE)
 

@@ -28,14 +28,14 @@ def myAccount(request):
         if formMyAccount.is_valid():
             formMyAccount.save()
             username = formMyAccount.cleaned_data.get('username')
-            return redirect('/login')  # Перенаправление на страницу входа после успешной регистрации
+            return redirect('/user_login')  # Перенаправление на страницу входа после успешной регистрации
     else:
         formMyAccount = UserRegistrationForm()
     return render(request, "blog/registration.html", {'formMyAccount': formMyAccount})
 
 def logout_user(request):
     logout(request)
-    return redirect('/login')
+    return redirect('/user_login')
 
 def user_login(request):
     print('login')
@@ -94,7 +94,7 @@ def AddPost(request):
                 form.save(user=request.user)
             form = AddPostForm()
             try:
-                return redirect('/addpost')
+                return redirect('/')
                 print('nothing')
             except Exception as e:
                 form.add_error(None, f'Ошибка добавления рецепта:{e}')

@@ -14,9 +14,9 @@
       <hr>
       {% if request.user.is_authenticated %}
       <li><a href="{% url 'addPost' %}">Добавить рецепт</a></li>
-      <li><a href="/logout">Выйти</a></li>
+      <li><a href="{% url 'UserLogout' %}">Выйти</a></li>
       {% else %}
-      <li><a href="{% url 'Registration' %}">Регистрация нового Данила</a></li>
+      <li><a href="{% url 'Registration' %}">Регистрация</a></li>
       <li><a href="{% url 'userLogin' %}">Вход</a></li>
       {% endif %}
 <!--      <li><a href="{% url 'contact' %}">Контакты</a></li>-->
